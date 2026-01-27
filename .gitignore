@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Autosave files
 *.asv
 *.m~
@@ -38,3 +39,6 @@ codegen/
 # SimBiology backup files
 *.sbproj.backup
 *.sbproj.bak
+=======
+
+>>>>>>> 748b4d1f86345a914c2ed4eac546dd2704704fe9
