@@ -19,7 +19,6 @@ phase-locked. **Nat Commun** 13, 3721 (2022).
 From MATLAB:
 
 ```matlab
-cd matlab
 out = run_ren2022_demo();
 ```
 
