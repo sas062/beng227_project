@@ -37,9 +37,7 @@ The codebase includes both:
 
 For each alpha cell:
 
-$\frac{d\theta_\alpha}{dt}$
-=
-$\omega_\alpha + K_{\beta\alpha}\,I_\beta\,f_{r\alpha}(\theta_\alpha)$
+$\frac{d\theta_\alpha}{dt}=\omega_\alpha + K_{\beta\alpha}\,I_\beta\,f_{r\alpha}(\theta_\alpha)$
 
 where \(I_\beta\) is a weighted spatial average of beta secretion.
 
@@ -47,21 +45,13 @@ where \(I_\beta\) is a weighted spatial average of beta secretion.
 
 For each beta cell:
 
-\[
-\frac{d\theta_\beta}{dt}
-=
-\omega_\beta + K_{\alpha\beta}\,G(x_\beta,y_\beta,t)\,f_{r\beta}(\theta_\beta)
-\]
+$\frac{d\theta_\beta}{dt}=\omega_\beta + K_{\alpha\beta}\,G(x_\beta,y_\beta,t)\,f_{r\beta}(\theta_\beta)$
 
 with glucagon sampled from the grid via bilinear interpolation.
 
 ### 3) Glucagon PDE
 
-\[
-\frac{\partial G}{\partial t}
-=
-D_G\nabla^2G + S(x,y,t) - \tau G
-\]
+$\frac{\partial G}{\partial t}=D_G\nabla^2G + S(x,y,t) - \tau G$
 
 where \(S\) is the alpha-cell secretion field built from normalized Gaussian kernels.
 
