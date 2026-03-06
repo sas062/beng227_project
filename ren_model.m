@@ -35,7 +35,7 @@ fig = figure;
 tl = tiledlayout(4,1,'TileSpacing','compact','Padding','compact');
 ax = gobjects(4,1);
 
-tspan = [0, 360];
+tspan = [0 360];
 
 for i = 1:size(K,1)
     p.K_ab = K(i,1);
