@@ -1,14 +1,14 @@
 clc; clear; close all;
 
 % Solver parameters
-tspan = [0 360];
+tspan = [0 3600];
 
 % Define constants
 p.w_a = 2*pi / 40;
 p.tau = 0.5;
-p.DG = 10;      % placeholder diffusivity
-p.sG = 1;       % placeholder secretion scaling factor
-p.sigmaG = 10;  % placeholder secretion Gaussian SD. ~3*sigmaG = max secretion radius
+p.DG = 100;      % placeholder diffusivity
+p.sG = 10;       % placeholder secretion scaling factor
+p.sigmaG = 25;  % placeholder secretion Gaussian SD. ~3*sigmaG = max secretion radius
 p.lI = 20;      % placeholder interaction length (for insulin secretion to alpha cells)
 
 % Coupling Coefficients
@@ -73,3 +73,5 @@ y0 = [theta_a0; theta_b0; G0(:)];
 % SOLVE
 opts = odeset('RelTol',1e-6,'AbsTol',1e-8);
 [t, y] = ode15s(@(t,y) rhs_islet(t,y,p), tspan, y0);
+
+save('islet_results.mat', 't', 'y', 'p', 'theta_a0', 'theta_b0', 'G0');
