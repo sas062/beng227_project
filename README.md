@@ -37,11 +37,11 @@ The codebase includes both:
 
 For each alpha cell:
 
-\[
+$
 \frac{d\theta_\alpha}{dt}
 =
 \omega_\alpha + K_{\beta\alpha}\,I_\beta\,f_{r\alpha}(\theta_\alpha)
-\]
+$
 
 where \(I_\beta\) is a weighted spatial average of beta secretion.
 
