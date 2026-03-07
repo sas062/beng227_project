@@ -1,4 +1,6 @@
-% Plot
+% Perplexity code...
+
+% Plots
 
 clc; clear; close all;
 load('islet_results.mat');
@@ -15,7 +17,8 @@ surf(p.X, p.Y, S0);
 shading interp;
 view(2);
 axis equal tight;
-colorbar;
+cb1 = colorbar;
+cb1.Color = 'k';
 hold on;
 z1 = max(S0(:)) + 0.05*max(S0(:));
 hA1 = scatter3(p.xa, p.ya, z1*ones(size(p.xa)), 60, 'g', 'filled', 'MarkerEdgeColor', 'k');
@@ -29,7 +32,8 @@ surf(p.X, p.Y, G_final);
 shading interp;
 view(2);
 axis equal tight;
-colorbar;
+cb2 = colorbar;
+cb2.Color = 'k';
 hold on;
 z1 = max(S0(:)) + 0.05*max(S0(:));
 hA2 = scatter3(p.xa, p.ya, z1*ones(size(p.xa)), 60, 'g', 'filled', 'MarkerEdgeColor', 'k');
@@ -45,7 +49,8 @@ figure(2);
 subplot(1,2,1);
 imagesc(p.x, p.y, S0);
 axis xy equal tight;
-colorbar;
+cb3 = colorbar;
+cb3.Color = 'k';
 hold on;
 hA3 = plot(p.xa, p.ya, 'wo', 'MarkerFaceColor', 'g');
 hB3 = plot(p.xb, p.yb, 'ko', 'MarkerFaceColor', 'r');
@@ -56,7 +61,8 @@ ylabel('y (\mum)');
 subplot(1,2,2);
 imagesc(p.x, p.y, G_final);
 axis xy equal tight;
-colorbar;
+cb4 = colorbar;
+cb4.Color = 'k';
 hold on;
 hA4 = plot(p.xa, p.ya, 'wo', 'MarkerFaceColor', 'g');
 hB4 = plot(p.xb, p.yb, 'ko', 'MarkerFaceColor', 'r');
@@ -141,3 +147,79 @@ legend('\theta_a', '\theta_b', 'Location', 'northeast');
 grid on;
 xlim([t(1) t(end)]);
 ylim([0 2*pi]);
+
+
+% Better version of fig 7 ?
+
+% Extract all phase histories
+theta_a_all = y(:, 1:p.Na);
+theta_b_all = y(:, p.Na + (1:p.Nb));
+
+% Unwrap to remove artificial 2*pi jumps
+theta_a_unwrap = unwrap(theta_a_all);
+theta_b_unwrap = unwrap(theta_b_all);
+
+% Compute population-mean trajectories
+theta_a_mean = mean(theta_a_unwrap, 2);   % column vector in time
+theta_b_mean = mean(theta_b_unwrap, 2);
+
+% Compute distance of each cell trajectory from its population mean
+dist_a = sum((theta_a_unwrap - theta_a_mean).^2, 1);
+dist_b = sum((theta_b_unwrap - theta_b_mean).^2, 1);
+
+% Pick most representative cells
+[~, ia_plot] = min(dist_a);
+[~, ib_plot] = min(dist_b);
+
+% Extract those representative trajectories
+theta_a_rep = theta_a_all(:, ia_plot);
+theta_b_rep = theta_b_all(:, ib_plot);
+
+% Plot in Ren-style wrapped format
+figure(8);
+plot(t, mod(theta_a_rep, 2*pi), 'g', 'LineWidth', 2); hold on;
+plot(t, mod(theta_b_rep, 2*pi), 'r', 'LineWidth', 2);
+xlabel('Time');
+ylabel('\theta');
+title('Representative Hybrid Model Phase Comparison');
+legend('\theta_a', '\theta_b', 'Location', 'northeast');
+grid on;
+xlim([t(1) t(end)]);
+ylim([0 2*pi]);
+
+
+% Anotha one
+
+% Extract all phase histories
+theta_a_all = y(:, 1:p.Na);
+theta_b_all = y(:, p.Na + (1:p.Nb));
+
+% Choose representative alpha cell from trajectory closeness to alpha mean
+theta_a_unwrap = unwrap(theta_a_all);
+theta_a_mean = mean(theta_a_unwrap, 2);
+dist_a = sum((theta_a_unwrap - theta_a_mean).^2, 1);
+[~, ia_plot] = min(dist_a);
+
+% Choose beta cell with intrinsic frequency closest to mean beta frequency
+[~, ib_plot] = min(abs(p.w_b - mean(p.w_b)));
+
+% Extract selected trajectories
+theta_a = theta_a_all(:, ia_plot);
+theta_b = theta_b_all(:, ib_plot);
+
+% Plot wrapped phases in Ren-style format
+figure(9);
+plot(t, mod(theta_a, 2*pi), 'g', 'LineWidth', 2); hold on;
+plot(t, mod(theta_b, 2*pi), 'r', 'LineWidth', 2);
+xlabel('Time');
+ylabel('\theta');
+title('Hybrid Model Phase Comparison');
+legend('\theta_a', '\theta_b', 'Location', 'northeast');
+grid on;
+xlim([t(1) t(end)]);
+ylim([0 2*pi]);
+
+fprintf('Representative alpha cell: %d\n', ia_plot);
+fprintf('Representative beta cell (closest to mean frequency): %d\n', ib_plot);
+fprintf('Mean beta frequency: %.6f rad/s\n', mean(p.w_b));
+fprintf('Selected beta frequency: %.6f rad/s\n', p.w_b(ib_plot));

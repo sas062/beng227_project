@@ -8,8 +8,8 @@ p.w_a = 2*pi / 40;
 p.tau = 0.5;
 p.DG = 100;      % placeholder diffusivity
 p.sG = 10;       % placeholder secretion scaling factor
-p.sigmaG = 25;  % placeholder secretion Gaussian SD. ~3*sigmaG = max secretion radius
-p.lI = 20;      % placeholder interaction length (for insulin secretion to alpha cells)
+p.sigmaG = 25;   % placeholder secretion Gaussian SD. ~3*sigmaG = max secretion radius
+p.lI = 20;       % placeholder interaction length (for insulin secretion to alpha cells)
 
 % Coupling Coefficients
 p.K_ab = 0.52 * (0.2*pi);
@@ -23,13 +23,13 @@ p.frb = @(th) 1;
 
 % Heterogeneity of Beta-cell intrinsic frequency
 % p.w_b : column vector of heterogenous beta frequencies
-p.Nb = 20; % NUMBER OF BETA CELLS
+p.Nb = 40; % NUMBER OF BETA CELLS
 p.wb_mean = 2*pi/360; % mean frequency (from Ren)
 p.sigma_b = 0.1; % Standard deviation for heterogeneity
 rng(1); % reproducible rand seed
 p.w_b = p.wb_mean * (1 + p.sigma_b * randn(p.Nb,1));
 
-p.Na = 10; % NUMBER OF ALPHA CELLS
+p.Na = 20; % NUMBER OF ALPHA CELLS
 
 % Initial alpha and beta phases
 % Could also just set to zeros
