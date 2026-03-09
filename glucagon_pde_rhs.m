@@ -10,6 +10,11 @@ function dGdt = glucagon_pde_rhs(t, G, theta_a, p)
     % (G(3:end,2:end-1) - 2*G(2:end-1,2:end-1) + G(1:end-2,2:end-1)) / p.dy^2;
 
     S = glucagon_secretion(theta_a,p);
+    [n,m] = size(G);
+    G(1:n,1) = 0;
+    G(1:n,m) = 0;
+    G(1,1:m) = 0;
+    G(n,1:m) = 0;
     
     % PDE right-hand side
     dGdt = p.DG * L + S - p.tau * G;

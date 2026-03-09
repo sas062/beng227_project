@@ -74,6 +74,26 @@ legend([hA4, hB4], {'Alpha cells', 'Beta cells'}, 'Location', 'best');
 % Extract phase histories
 theta_a = y(:, 1:p.Na);
 theta_b = y(:, p.Na + (1:p.Nb));
+theta_a = mod(theta_a,2*pi);
+theta_b = mod(theta_b,2*pi);
+
+figure(3);
+
+%subplot(1,2,1);
+plot(t, theta_a, 'LineWidth', 1);
+xlabel('Time');
+ylabel('\theta_\alpha (rad)');
+title('Alpha-cell phases');
+grid on;
+
+
+figure(4);
+%subplot(1,2,2);
+plot(t, theta_b, 'LineWidth', 1);
+xlabel('Time');
+ylabel('\theta_\beta (rad)');
+title('Beta-cell phases');
+grid on;
 
 figure(3);
 
@@ -223,3 +243,16 @@ fprintf('Representative alpha cell: %d\n', ia_plot);
 fprintf('Representative beta cell (closest to mean frequency): %d\n', ib_plot);
 fprintf('Mean beta frequency: %.6f rad/s\n', mean(p.w_b));
 fprintf('Selected beta frequency: %.6f rad/s\n', p.w_b(ib_plot));
+
+%% Do network analysis
+
+load('islet_results.mat');
+
+theta_b = y(:, p.Na + (1:p.Nb));
+theta_b = mod(theta_b,2*pi);
+
+st = find(t > 50,1, 'first');
+ed = numel(t);
+fspan = [st ed];
+Kavg_desired = 8;
+R = network_analysis(Kavg_desired,theta_b,fspan);
