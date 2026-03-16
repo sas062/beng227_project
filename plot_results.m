@@ -244,15 +244,17 @@ fprintf('Representative beta cell (closest to mean frequency): %d\n', ib_plot);
 fprintf('Mean beta frequency: %.6f rad/s\n', mean(p.w_b));
 fprintf('Selected beta frequency: %.6f rad/s\n', p.w_b(ib_plot));
 
-%% Do network analysis
+%% Do network analysis -> For determing Kbb
 
 load('islet_results.mat');
 
 theta_b = y(:, p.Na + (1:p.Nb));
 theta_b = mod(theta_b,2*pi);
 
-st = find(t > 50,1, 'first');
+st = find(t > 200,1, 'first');
 ed = numel(t);
 fspan = [st ed];
 Kavg_desired = 8;
 R = network_analysis(Kavg_desired,theta_b,fspan);
+%%
+plot(t,theta_b)

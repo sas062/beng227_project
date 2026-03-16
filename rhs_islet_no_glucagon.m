@@ -7,10 +7,10 @@ function dydt = rhs_islet_no_glucagon(t, y, p)
     theta_a = y(ia);
     theta_b = y(ib);
     
-    insulin = insulin_secretion(theta_b, p);
+    %insulin = insulin_secretion(theta_b, p);
     
     % Alpha-cell phase dynamics (Equation 1)
-    dtheta_a = p.w_a + p.K_ba * insulin .* p.fra(theta_a);
+    dtheta_a = ones(p.Na,1)*p.w_a; %+ p.K_ba * insulin .* p.fra(theta_a);
     
     % Beta-cell phase dynamics (Equation 2)
     dtheta_b = p.w_b; 
