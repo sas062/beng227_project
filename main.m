@@ -15,7 +15,7 @@ p.EC50 = 7;                % EC50 cAMP production and glucagon (Moens et al.  ->
 %p.EC50 = 1.05;            % EC50 for GLP1R internalization to glucagon (Tong et al. (2025)) -> units of uM
 
 % Coupling Coefficients
-p.K_ab = 0.52 * (0.2*pi);
+p.K_ab = 0.17 * (0.2*pi);
 p.K_ba = -0.66 * (0.2*pi);
 p.K_bb = 0.1;
 
