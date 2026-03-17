@@ -1,12 +1,12 @@
 clc; clear; close all;
 
 % Solver parameters
-tspan = [0:1:720];
+tspan = 0:1:720;
 
 % Define constants
 p.w_a = 2*pi / 40;
 p.Vscale = 60;             % placeholder volume scaling
-p.tau = 0.01;               % placeholder degredation rate
+p.tau = 0.01;              % placeholder degredation rate
 p.DG_G = 150;              % placeholder diffusivity -> Glucagon
 p.sG_G = 0.0033*p.Vscale;  % placeholder secretion scaling factor -> Glucagon
 p.sigmaG = 10;             % placeholder secretion Gaussian SD. ~3*sigmaG = max secretion radius

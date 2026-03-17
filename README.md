@@ -5,10 +5,10 @@ This repository contains MATLAB simulations for pancreatic islet dynamics, combi
 - a spatial glucagon field governed by a diffusion-reaction PDE.
 
 The codebase includes both:
-1. a **reduced 3-variable model** (`ren_model.m`) used to reproduce the classic alpha-beta phase behavior, and
-2. a **hybrid spatial ODE-PDE model** (`main.m` + helper functions) with multiple cells on a 2D grid.
+1. a **Recreation of the Initial Model by Ren et al.** (`ren_model.m`) used to reproduce the classic alpha-beta phase behavior, and
+2. a **Hybrid Spatial ODE-PDE Model** (`main.m` + helper functions) with multiple cells on a 2D grid.
 
-## Repository contents
+## Repository Contents
 
 - `main.m`  
   Entry point for the spatial hybrid model. Defines parameters, initializes cell positions and phases, builds the glucagon grid state, and runs `ode15s`.
@@ -28,10 +28,16 @@ The codebase includes both:
 - `ren_model.m`  
   Reduced non-spatial reference model (single alpha, single beta, scalar glucagon) that generates coupling-regime phase plots.
 
+- `get_NN`
+  Creates connectivity matrix for beta-beta interactions.
+
+- `assign_cell_type`
+  Assigns cell type to the islet structure.
+
 - `Figures/`  
   Saved figures (PNG/FIG) for representative coupling regimes.
 
-## Mathematical structure
+## Mathematical Structure
 
 ### 1) Alpha-cell phase dynamics
 
@@ -58,9 +64,9 @@ where \(S\) is the alpha-cell secretion field built from normalized Gaussian ker
 ## Default model setup in `main.m`
 
 - **Simulation window:** `tspan = [0 360]`
-- **Cell counts:** `Na = 10`, `Nb = 20`
-- **Domain:** `Lx = Ly = 200` µm
-- **Grid:** `Nx = Ny = 41`
+- **Cell counts:** `Na = 15`, `Nb = 85`
+- **Domain:** `Lx = Ly = 400` µm
+- **Grid:** `Nx = Ny = 81`
 - **Architecture:** beta cells biased toward islet interior, alpha cells toward periphery
 - **Solver:** `ode15s` with `RelTol=1e-6`, `AbsTol=1e-8`
 
@@ -68,13 +74,16 @@ where \(S\) is the alpha-cell secretion field built from normalized Gaussian ker
 
 ### Spatial hybrid model
 
-From MATLAB (or Octave where supported), run:
+From MATLAB, run:
 
 ```matlab
 main
 ```
+```matlab
+plot_results_V2
+```
 
-This computes the coupled alpha/beta/glucagon dynamics. You can inspect returned workspace variables (`t`, `y`, parameter struct `p`) and add plotting as needed.
+This computes the coupled alpha/beta/glucagon dynamics and produces relevant plots to visualize dynamics.
 
 ### Reduced reference model
 
@@ -88,5 +97,4 @@ This generates a 4-panel figure comparing coupling regimes (`Slow`, `Fast`, `Mix
 
 ## Notes
 
-- Parameter values in `main.m` are currently set as exploratory placeholders for diffusion/secretion/interactions and can be tuned for calibration studies.
-- The project file `beng227_project.prj` can be opened in MATLAB for project-aware workflows.
+- Additional development files are included in this repository. Only the files listed above in 'Repository Contents' are necessary to run the model.
