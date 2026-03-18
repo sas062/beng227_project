@@ -34,6 +34,12 @@ The codebase includes both:
 - `assign_cell_type`
   Assigns cell type to the islet structure.
 
+- `circle_packing`
+  Defines islet structure.
+
+- `report_plots`
+  Plotting code for figures included in final report. Uses saved results `islet_results_fast.mat` and `islet_results_slow.mat`.
+
 - `Figures/`  
   Saved figures (PNG/FIG) for representative coupling regimes.
 

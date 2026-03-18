@@ -1,5 +1,5 @@
 clc; clear; close all;
-load('islet_results.mat');
+load('islet_results_fast.mat');
 
 %% Plot beta-cell and alpha-cell phases
 
@@ -85,8 +85,20 @@ theta_a_mean = mean(theta_a_all,2);
 figure(7)
 hold on;
 plot(theta_b_mean,theta_a_mean,'k');
+
+% Best-fit line
+pf = polyfit(theta_b_mean, theta_a_mean, 1);
+xfit = linspace(min(theta_b_mean), max(theta_b_mean), 200);
+yfit = polyval(pf, xfit);
+slope = pf(1);
+intercept = pf(2);
+
+fprintf('Best-fit slope (theta_a vs theta_b): %.6f\n', slope);
+fprintf('Best-fit intercept: %.6f\n', intercept);
+plot(xfit, yfit, 'r--', 'LineWidth', 2);
 ylabel('\theta_\alpha')
 xlabel('\theta_\beta')
+
 
 % Plot phase difference
 

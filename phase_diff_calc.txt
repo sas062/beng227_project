@@ -1,0 +1,12 @@
+ren_model
+Slow:
+  Mean phase difference = -54.49 deg
+  Mean phase difference = -0.951 rad
+  Estimated period      = 103.165
+
+Fast:
+  Mean phase difference = -64.81 deg
+  Mean phase difference = -1.131 rad
+  Estimated period      = 24.639
+
+

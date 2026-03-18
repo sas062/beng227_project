@@ -2,13 +2,9 @@
 % MP4 & lightweight GIF of glucagon concentration over time
 
 clc; clear; close all;
-load('islet_results.mat');
+load('islet_results_slow.mat');
 
 outDir = './Figures';
-if ~exist(outDir, 'dir')
-    mkdir(outDir);
-end
-
 g_all = y(:, p.Na + p.Nb + 1:end);
 cmax = max(g_all(:));
 
@@ -25,7 +21,7 @@ mp4_stride = max(1, floor(nFramesTotal / mp4_target_frames));
 mp4_idx = 1:mp4_stride:nFramesTotal;
 
 fig1 = figure('Color','w', 'Position', [100 100 900 700]);
-v = VideoWriter(fullfile(outDir, 'glucagon_animation.mp4'), 'MPEG-4');
+v = VideoWriter(fullfile(outDir, 'glucagon_animation_slow.mp4'), 'MPEG-4');
 v.FrameRate = mp4_fps;
 open(v);
 
@@ -63,7 +59,7 @@ gif_target_frames = round(gif_target_duration / gif_delay);
 gif_stride = max(1, floor(nFramesTotal / gif_target_frames));
 gif_idx = 1:gif_stride:nFramesTotal;
 
-gif_filename = fullfile(outDir, 'glucagon_animation_preview.gif');
+gif_filename = fullfile(outDir, 'glucagon_animation_preview_slow.gif');
 
 fig2 = figure('Color','w', 'Position', [150 150 560 420]);
 

@@ -5,25 +5,25 @@ tspan = 0:1:720;
 
 % Define constants
 p.w_a = 2*pi / 40;
-p.Vscale = 60;             % placeholder volume scaling
-p.tau = 0.01;              % placeholder degredation rate
-p.DG_G = 150;              % placeholder diffusivity -> Glucagon
-p.sG_G = 0.0033*p.Vscale;  % placeholder secretion scaling factor -> Glucagon
-p.sigmaG = 10;             % placeholder secretion Gaussian SD. ~3*sigmaG = max secretion radius
-p.lI = 10;                 % placeholder interaction length (for insulin secretion to alpha cells)
+p.Vscale = 60;             % volume scaling
+p.tau = 0.01;              % degredation rate
+p.DG_G = 150;              % diffusivity -> Glucagon
+p.sG_G = 0.0033*p.Vscale;  % secretion scaling factor -> Glucagon
+p.sigmaG = 10;             % secretion Gaussian SD. ~3*sigmaG = max secretion radius
+p.lI = 10;                 % interaction length (for insulin secretion to alpha cells)
 p.EC50 = 7;                % EC50 cAMP production and glucagon (Moens et al.  -> units of (nM)
 %p.EC50 = 1.05;            % EC50 for GLP1R internalization to glucagon (Tong et al. (2025)) -> units of uM
 
-% Coupling Coefficients
-p.K_ab = 0.17 * (0.2*pi);
-p.K_ba = -0.66 * (0.2*pi);
+% Coupling Coefficients (Slow Oscillations)
+p.K_ab = 0.1 * (0.2*pi);
+p.K_ba = -0.76 * (0.2*pi);
 p.K_bb = 0.1;
 
 
-% Original Secretion Response Functions
-% Coupling Coefficients
+% Coupling Coefficients (Fast Oscillations)
 % p.K_ab = 0.52 * (0.2*pi);
 % p.K_ba = -0.66 * (0.2*pi);
+% p.K_bb = 0.1;
 
 % Original Secretion Response Functions
 % Ren et al Equations 1-3
@@ -116,7 +116,6 @@ switch p.diffusion
         toc
         save('islet_results.mat', 't', 'y', 'p', 'theta_a0', 'theta_b0');      
 end
-
 
 
 
